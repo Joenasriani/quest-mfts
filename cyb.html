@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Function Tactical System - Development Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark-primary: #0a0a0f;
+            --bg-dark-secondary: #1a1a22;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0b0;
+            --accent-primary: #33ccff;
+            --accent-secondary: #00ff99;
+            --border-color: #334455;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            display: flex;
+        }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar-nav {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #111;
+            border-right: 2px solid var(--accent-primary);
+            box-shadow: 0 0 20px rgba(51, 204, 255, 0.2);
+            padding: 2em 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav-header {
+            padding: 0 1.5em 1em 1.5em;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 1em 0;
+        }
+
+        .sidebar-nav ul li a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 1.5em;
+            font-size: 0.9rem;
+            transition: all 0.2s ease-in-out;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav ul li a:hover {
+            background: var(--bg-dark-secondary);
+            color: var(--accent-primary);
+        }
+
+        .sidebar-nav ul li a.active {
+            color: #fff;
+            background: var(--bg-dark-secondary);
+            border-left: 3px solid var(--accent-primary);
+            font-weight: 500;
+        }
+
+        .sidebar-nav ul li ul {
+            padding-left: 1em;
+        }
+
+        .sidebar-nav ul li ul a {
+            font-size: 0.85rem;
+            padding-left: 2.5em;
+        }
+
+
+        /* --- Main Content --- */
+        .content {
+            margin-left: 280px;
+            padding: 3vmax 5vmax;
+            width: calc(100% - 280px);
+            max-width: 1200px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #fff;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75em;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-top: 2.5em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            margin-top: 2em;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 1.5em;
+        }
+
+        p {
+            margin-bottom: 1.5em;
+        }
+
+        ul, ol {
+            padding-left: 2em;
+            margin-bottom: 1.5em;
+        }
+        
+        li {
+            margin-bottom: 0.5em;
+        }
+        
+        code {
+            background: var(--bg-dark-secondary);
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--accent-secondary);
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* --- Word-Style Table --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+            background: var(--bg-dark-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color); /* Solid 'Word-style' lines */
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        thead th {
+            background-color: #2a3a4a;
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #1f2939;
+        }
+
+        tbody tr:hover {
+            background-color: #3a4a5a;
+            color: #fff;
+        }
+
+        /* --- Schematics Box --- */
+        pre {
+            background: #050508;
+            border: 1px solid var(--accent-primary);
+            padding: 1.5em;
+            border-radius: 8px;
+            overflow-x: auto;
+            color: var(--accent-secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(51, 204, 255, 0.2);
+            margin: 2em 0;
+        }
+
+        /* --- Collapsible Accordion (Part 1) --- */
+        .system-card {
+            background: var(--bg-dark-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1.5em;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .system-card:hover {
+             box-shadow: 0 0 15px rgba(51, 204, 255, 0.1);
+        }
+
+        .system-card h3 {
+            margin: 0;
+            padding: 1.5em;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .system-card h3:hover {
+            background: #222a33;
+        }
+
+        .system-card h3::after {
+            content: '+';
+            font-size: 2rem;
+            color: var(--accent-primary);
+            transition: transform 0.3s ease;
+            font-weight: 300;
+        }
+
+        .system-card.active h3::after {
+            transform: rotate(45deg);
+        }
+
+        .collapsible-content {
+            padding: 0 1.5em;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+        
+        .collapsible-content.active {
+            padding: 0 1.5em 1.5em 1.5em;
+            max-height: 2000px; /* Large value */
+            transition: max-height 0.6s ease-in, padding 0.6s ease-in;
+        }
+
+        /* --- JS Fade-in Animation --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar-nav">
+        <div class="sidebar-nav-header">MFTS Guide</div>
+        <ul>
+            <li>
+                <a href="#part1" class="nav-link">Part 1: Components</a>
+                <ul>
+                    <li><a href="#sys1" class="nav-link">1. Speech-Recognition</a></li>
+                    <li><a href="#sys2" class="nav-link">2. HMDS</a></li>
+                    <li><a href="#sys3" class="nav-link">3. Off-Boresight</a></li>
+                    <li><a href="#sys4" class="nav-link">4. HOTAS</a></li>
+                    <li><a href="#sys5" class="nav-link">5. Life Support (Sim)</a></li>
+                    <li><a href="#sys6" class="nav-link">6. Radar & Sensors</a></li>
+                    <li><a href="#sys7" class="nav-link">7. Electronic Warfare</a></li>
+                    <li><a href="#sys8" class="nav-link">8. CNI Suite</a></li>
+                    <li><a href="#sys9" class="nav-link">9. Sensor Fusion</a></li>
+                    <li><a href="#sys10" class="nav-link">10. Logistics (ALIS)</a></li>
+                    <li><a href="#sys11" class="nav-link">11. Block 4 Upgrades</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#part2" class="nav-link">Part 2: Integration</a>
+                <ul>
+                    <li><a href="#sourcing" class="nav-link">2.1. Hardware Sourcing</a></li>
+                    <li><a href="#assembly" class="nav-link">2.2. Assembly Manual</a></li>
+                    <li><a href="#config" class="nav-link">2.3. Software Config</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#part3" class="nav-link">Part 3: Presentation</a>
+                <ul>
+                    <li><a href="#schematics" class="nav-link">3.1. Schematics</a></li>
+                    <li><a href="#presentation" class="nav-link">3.2. Final Product</a></li>
+                    <li><a href="#resources" class="nav-link">3.3. Resource Appendix</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>Multi-Function Tactical System: Development Guide</h1>
+
+        <h2 id="part1">Part 1: System Component Specifications & Application Matrix</h2>
+        <p class="fade-in">This section details the 11 specified systems, translating their real-world tactical functions into a practical VR/AR implementation using a Meta Quest headset.</p>
+
+        <div class="system-card fade-in" id="sys1">
+            <h3>1. Speech-Recognition System</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>A software layer that translates user voice commands into in-game keyboard or controller inputs, allowing for hands-free operation of complex systems (e.g., "Gear up," "Contact tower," "Fence in").</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> A quality microphone (either the built-in Meta Quest Pro/3 mic or a dedicated external mic like an Antlion ModMic).</li>
+                    <li><strong>Software:</strong> VoiceAttack (PC software) is the industry standard. It runs in the background, intercepts speech via the Windows Speech Recognition engine, and executes pre-programmed macros.</li>
+                    <li><strong>Software (Add-on):</strong> HCS VoicePacks (works with VoiceAttack) provides pre-made profiles and professional voice actor responses for popular sims, enhancing immersion.</li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> High-fidelity Flight Sims (e.g., DCS World, Microsoft Flight Simulator 2020) for managing radios, checklists, and wingmen.</li>
+                    <li><strong>Secondary:</strong> Space Sims (e.g., Elite Dangerous) for power distribution, navigation, and targeting commands.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys2">
+            <h3>2. Helmet-Mounted Display System (HMDS) & Enhancements</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>The VR headset itself, enhanced with software to mimic advanced military HMDS features. This includes overlaying critical flight/targeting data and simulating "Gen 3 night vision" by using the headset's passthrough cameras.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> Meta Quest Pro (preferred for comfort and mixed reality) or Meta Quest 3 (superior passthrough camera quality). Prescription lens inserts (e.g., from VR Optician) for users who wear glasses.</li>
+                    <li><strong>Software:</strong>
+                        <ul>
+                            <li><strong>Night Vision:</strong> A custom shader or filter (e.g., via OpenXR Toolkit) applied to the Quest's color passthrough feed to create a green-tinted, grainy, light-amplified effect.</li>
+                            <li><strong>HMDS Overlay:</strong> In-game support. Games like DCS World (F-35, F/A-18, A-10C II, F-16C) and VTOL VR (F-45A) natively project a full HMDS onto the display.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Modern Combat Flight Sims (e.g., DCS: F-35, VTOL VR) where the HMDS is the primary flight instrument.</li>
+                    <li><strong>Secondary:</strong> Tactical Shooters (e.g., Onward, Pavlov) using passthrough night vision for mixed-reality "room clearing" scenarios.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys3">
+            <h3>3. Off-Boresight Targeting System (Eye-Tracking)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>Allows the user to lock onto targets simply by looking at them, enabling "high off-boresight" (HOBS) missile launches without pointing the aircraft's nose at the target.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware (Path 1):</strong> Meta Quest Pro, which has integrated, native eye-tracking.</li>
+                    <li><strong>Hardware (Path 2):</strong> Meta Quest 3 + Pupil Labs Neon eye-tracking add-on.</li>
+                    <li><strong>Software:</strong> OpenXR Toolkit. This middleware is essential. It intercepts the eye-tracking data from the Quest Pro (via Oculus Link) or the Pupil Labs add-on and exposes it to the game. Many sims (like DCS World) can be configured to map "gaze" as a sensor input.</li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Air-to-Air Combat Sims (e.g., DCS World, War Thunder VR) for targeting with HOBS missiles (e.g., AIM-9X).</li>
+                    <li><strong>Secondary:</strong> Space Combat (e.g., Star Wars: Squadrons) for quickly selecting targets in a 3D environment.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys4">
+            <h3>4. Hands-On Throttle-And-Stick (HOTAS) Integration</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>A physical controller setup (a joystick and a separate throttle) that replicates a real aircraft's controls. This provides tactile feedback and muscle memory for flight, freeing up the VR controllers.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> A PC-compatible HOTAS system.
+                        <ul>
+                            <li><strong>Premium:</strong> Thrustmaster HOTAS Warthog (highly realistic, metal, modeled after A-10C).</li>
+                            <li><strong>Best Value:</strong> Logitech G X56 (more buttons, modern, good for space sims too).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Software:</strong> Manufacturer driver software (e.g., Thrustmaster T.A.R.G.E.T.) for programming, and in-game control mapping. The system connects directly to the PC via USB, not the headset.</li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> All Flight Sims (e.g., Microsoft Flight Simulator, DCS World, VTOL VR - which supports rudder pedals).</li>
+                    <li><strong>Secondary:</strong> Mech Sims (e.g., MechWarrior 5: Mercenaries VR mod) for throttle and torso/aim control.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys5">
+            <h3>5. Simulated Life Support System (e.g., OBOGS)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>A system to simulate the pilot's physical state and environment. This includes G-force effects, hypoxia (simulated OBOGS - On-Board Oxygen Generating System - failure), and impact/damage feedback.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> A haptic feedback vest, such as the bHaptics TactSuit X40.</li>
+                    <li><strong>Software:</strong>
+                        <ul>
+                            <li><strong>Native Support:</strong> Games with built-in bHaptics support will provide directional damage, G-force (pressure on chest/back), and weapon fire feedback.</li>
+                            <li><strong>Audio-to-Haptic:</strong> For other games, the bHaptics software can translate audio cues (like a "breathing" sound file for OBOGS, or high-G "groan" sounds) into vibration.</li>
+                            <li><strong>Audio:</strong> A simple sound loop of an OBOGS breathing rhythm can be played in the background for immersion.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Combat Flight Sims (e.g., DCS World, IL-2 Sturmovik) for feeling G-forces, flak, and cannon fire.</li>
+                    <li><strong>Secondary:</strong> VR Shooters (e.g., Half-Life: Alyx, Into the Radius) for directional damage feedback.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys6">
+            <h3>6. Radar & Sensor Systems (AESA, DAS, EOTS)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>The in-game simulation of advanced sensor suites. AESA (Active Electronically Scanned Array) radar, DAS (Distributed Aperture System - "see-through" cameras), and EOTS (Electro-Optical Targeting System - "sniper pod").</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> A high-resolution HMDS (Quest Pro/3) to clearly read the detailed MFD (Multi-Function Display) and HMDS readouts.</li>
+                    <li><strong>Software (In-Game):</strong> This is almost entirely simulated by the game itself.
+                        <ul>
+                            <li>DCS World (F-35 module) and VTOL VR (F-45A) both simulate AESA radar (TWS modes), EOTS for ground targeting, and DAS (simulated by projecting sensor video to the pilot's HMDS, allowing them to "look through" the cockpit floor).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Software (MR):</strong> A conceptual implementation would use the Meta Quest Passthrough API to render the real-world view when the pilot looks "through" the cockpit floor, overlaying targeting data.</li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Modern Combat Flight Sims (e.g., VTOL VR, DCS World) that are built around these specific sensor suites.</li>
+                    <li><strong>Secondary:</strong> N/A - This is highly specific to advanced sim-lite or full-sim games.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys7">
+            <h3>7. Electronic Warfare Suite (Barracuda System, ThNDR)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>An in-game system that simulates a Radar Warning Receiver (RWR), missile launch warnings (MWS), and countermeasures (chaff/flares).</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> Haptic Vest (bHaptics) and good headphones.</li>
+                    <li><strong>Software:</strong>
+                        <ul>
+                            <li><strong>In-Game:</strong> Simulated entirely by the game (DCS World and VTOL VR have detailed RWR and MWS systems).</li>
+                            <li><strong>Haptics:</strong> The bHaptics suit can be mapped to RWR "ping" or "lock" audio cues to provide a physical "buzz" from the direction of the threat.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Combat Flight Sims (e.g., DCS World, VTOL VR) for situational awareness and defensive maneuvering.</li>
+                    <li><strong>Secondary:</strong> Arcade Flight Games (e.g., Project Wingman) that feature RWR/MWS mechanics.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys8">
+            <h3>8. Communications, Navigation, and Identification (CNI) Suite</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>Simulates the complex radio, navigation (TACAN/GPS), and IFF (Identify Friend or Foe) systems of a modern aircraft.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> HOTAS (for Push-to-Talk buttons), Speech-Recognition System (for commands).</li>
+                    <li><strong>Software:</strong>
+                        <ul>
+                            <li><strong>In-Game:</strong> Simulated by the game (DCS World has full-simulation radios).</li>
+                            <li><strong>External:</strong> VoiceAttack (for voice-activated radio commands), and third-party overlays (e.g., vr-overlay) to display Discord or VATSIM/IVAO client windows inside the VR environment.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Multiplayer Flight Sims (e.g., DCS World on a server, Microsoft Flight Simulator on VATSIM) for authentic ATC and tactical communication.</li>
+                    <li><strong>Secondary:</strong> Team-based VR Shooters (e.g., Onward) for coordinating with squad members.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys9">
+            <h3>9. Sensor Fusion Architecture</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>This is the digital backbone of the project. It's the combination of all software and middleware that "fuses" the disparate hardware inputs (HOTAS, Eye-Tracking, Voice, Haptics) and game data into one cohesive experience.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> The PC itself, acting as the central hub.</li>
+                    <li><strong>Software:</strong> This is the software stack.
+                        <ul>
+                            <li><strong>PCVR Platform:</strong> SteamVR or Oculus PC App.</li>
+                            <li><strong>Drivers:</strong> Thrustmaster/Logitech drivers.</li>
+                            <li><strong>Middleware:</strong> OpenXR Toolkit (to manage eye-tracking and performance) + VoiceAttack (for voice) + bHaptics Player (for haptics).</li>
+                            <li><strong>Application:</strong> The game/sim (DCS World, VTOL VR).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> The fully-integrated tactical system.</li>
+                    <li><strong>Secondary:</strong> Any complex PCVR game where you combine multiple peripherals (e.g., a racing sim with a wheel, pedals, and haptics).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys10">
+            <h3>10. Logistics & Management System (ALIS/ODIN)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>Simulates the "meta-game" of aircraft maintenance, mission planning, and logistics.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> N/A (purely software).</li>
+                    <li><strong>Software:</strong>
+                        <ul>
+                            <li><strong>In-Game:</strong> This is a core feature of sims like DCS World via its Mission Editor and re-arm/refuel systems.</li>
+                            <li><strong>Conceptual (MR):</strong> A custom-developed "Virtual Hangar" app using the Meta Quest SDK where you could use mixed reality to walk around a 3D model of your aircraft, plan loadouts with hand tracking, and then launch into the sim.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Strategic Flight Sims (e.g., DCS World Campaign, Falcon BMS) where planning and logistics are part of the gameplay.</li>
+                    <li><strong>Secondary:</strong> Virtual Hangar/Showroom Apps (e.g., Vehicle VR).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="system-card fade-in" id="sys11">
+            <h3>11. Block 4 Upgrades (Conceptual future-proofing)</h3>
+            <div class="collapsible-content">
+                <h4>Core Concept & Function</h4>
+                <p>A conceptual framework for future expansion, focusing on next-generation MR/AR features.</p>
+                
+                <h4>Implementation Method</h4>
+                <ul>
+                    <li><strong>Hardware:</strong> Future headsets with higher-resolution passthrough, wider FoV, and more advanced sensors.</li>
+                    <li><strong>Software:</strong> Deeper integration with the Meta Passthrough API and OpenXR Scene Understanding. This would allow a true DAS simulation, where the game could dynamically map your real-world room and overlay tactical data onto your actual walls, or project the in-game world outside your virtual cockpit.</li>
+                </ul>
+
+                <h4>Primary Gaming/Application Scenarios</h4>
+                <ul>
+                    <li><strong>Primary:</strong> Custom-built AR/MR applications (e.g., a "Tactical C2" app).</li>
+                    <li><strong>Secondary:</strong> Future AR-native games that blend reality with virtual elements.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <h2 id="part2">Part 2: Sourcing, Assembly & Integration Guide</h2>
+        <p class="fade-in">This guide provides the practical steps for acquiring and connecting the components.</p>
+
+        <h3 id="sourcing">2.1. Hardware Sourcing</h3>
+        
+        <table class="fade-in">
+            <thead>
+                <tr>
+                    <th>Component Category</th>
+                    <th>Recommended Model/Product Name</th>
+                    <th>Vendor / Where to Buy</th>
+                    <th>Compatibility Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>VR Headset (Path 1)</td>
+                    <td>Meta Quest Pro</td>
+                    <td>Meta Store, Amazon</td>
+                    <td>Recommended. Native eye/face tracking. Connects to PC via Oculus Link (USB-C) or Air Link (Wi-Fi 6E).</td>
+                </tr>
+                <tr>
+                    <td>VR Headset (Path 2)</td>
+                    <td>Meta Quest 3</td>
+                    <td>Meta Store, Amazon, Best Buy</td>
+                    <td>Excellent MR passthrough. Requires 3rd-party eye-tracking.</td>
+                </tr>
+                <tr>
+                    <td>Eye-Tracking (Path 2)</td>
+                    <td>Pupil Labs Neon Add-on</td>
+                    <td>Pupil Labs Official Website</td>
+                    <td>Specifically designed for Meta Quest 3. Requires DIY installation.</td>
+                </tr>
+                <tr>
+                    <td>HOTAS (Premium)</td>
+                    <td>Thrustmaster HOTAS Warthog</td>
+                    <td>Thrustmaster Store, Amazon</td>
+                    <td>Connects to PC via 2x USB-A ports. Heavy, requires stable desk mount.</td>
+                </tr>
+                <tr>
+                    <td>HOTAS (Best Value)</td>
+                    <td>Logitech G X56</td>
+                    <td>Logitech G Store, Amazon</td>
+                    <td>Connects to PC via 2x USB-A ports. Lighter, more versatile.</td>
+                </tr>
+                <tr>
+                    <td>Haptic Vest</td>
+                    <td>bHaptics TactSuit X40</td>
+                    <td>bHaptics Store, Knoxlabs</td>
+                    <td>Connects to PC via Bluetooth or USB-C (for wired audio-to-haptic).</td>
+                </tr>
+                <tr>
+                    <td>PCVR Link Cable</td>
+                    <td>Anker USB-C Link Cable (16ft)</td>
+                    <td>Amazon</td>
+                    <td>Required for wired Oculus Link. Connects Quest (USB-C) to PC (USB-A or USB-C).</td>
+                </tr>
+                <tr>
+                    <td>Headset Comfort</td>
+                    <td>VR Optician Lens Inserts</td>
+                    <td>VR Optician Website</td>
+                    <td>Custom-made to your prescription. Snaps into the headset.</td>
+                </tr>
+                <tr>
+                    <td>Microphone (Optional)</td>
+                    <td>Antlion Audio ModMic Wireless</td>
+                    <td>Antlion Audio, Amazon</td>
+                    <td>Attaches to headset. Provides higher quality audio than the built-in mic for VoiceAttack.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="assembly" class="fade-in">2.2. Physical Assembly Manual</h3>
+        <ul class="fade-in">
+            <li><strong>PC & Software Prep:</strong> Ensure your PC is VR-ready and has all GPU drivers updated.</li>
+            <li><strong>HOTAS Setup:</strong>
+                <ul>
+                    <li>Place the Thrustmaster Warthog (or Logitech X56) joystick and throttle on your desk or flight sim chair.</li>
+                    <li>Connect both the joystick and throttle USB-A cables directly to your PC's USB 3.0 ports. Windows should auto-detect them.</li>
+                </ul>
+            </li>
+            <li><strong>Haptic Vest Setup:</strong>
+                <ul>
+                    <li>Charge the bHaptics TactSuit X40 vest.</li>
+                    <li>Put the vest on.</li>
+                    <li>Power it on and pair it with your PC via your PC's Bluetooth settings.</li>
+                </ul>
+            </li>
+            <li><strong>VR Headset Setup (Wired Link):</strong>
+                <ul>
+                    <li>Connect the Oculus Link Cable to a USB-C or USB 3.1 port on your PC.</li>
+                    <li>Connect the other end of the cable to the Meta Quest Pro/3 headset.</li>
+                    <li>Put on the headset. It will prompt you to "Enable Oculus Link." Accept this.</li>
+                </ul>
+            </li>
+            <li><strong>VR Headset Setup (Wireless Air Link):</strong>
+                <ul>
+                    <li>Ensure your PC is connected to your router via an Ethernet cable.</li>
+                    <li>Ensure your Meta Quest Pro/3 is connected to the same router via a 5GHz or 6E Wi-Fi band.</li>
+                    <li>In the Quest's "Quick Settings" menu, enable Air Link and pair it with your PC (which must have the Oculus PC App running).</li>
+                </ul>
+            </li>
+            <li><strong>(If using Path 2) Eye-Tracking Assembly:</strong>
+                <ul>
+                    <li>Carefully follow the Pupil Labs Neon installation guide to mount the eye-tracking module inside the Meta Quest 3.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 id="config" class="fade-in">2.3. Software & Configuration Setup</h3>
+        <ul class="fade-in">
+            <li><strong>PCVR Platforms:</strong>
+                <ul>
+                    <li><strong>Oculus PC App:</strong> Install this first. This is required for Link/Air Link.
+                        <ul>
+                            <li>URL: <a href="https://www.meta.com/quest/setup/" target="_blank">https://www.meta.com/quest/setup/</a></li>
+                            <li>Configuration: Go to Settings > Beta and enable "Public Test Channel" for the latest updates.</li>
+                        </ul>
+                    </li>
+                    <li><strong>SteamVR:</strong> Install this via the Steam store. This is the runtime for most sims.
+                        <ul>
+                            <li>URL: <a href="https://store.steampowered.com/app/250820/SteamVR/" target="_blank">https://store.steampowered.com/app/250820/SteamVR/</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Middleware & Drivers:</strong>
+                <ul>
+                    <li><strong>HOTAS Drivers:</strong> Install the latest drivers and software for your HOTAS (e.g., T.A.R.G.E.T. for Thrustmaster).
+                        <ul>
+                            <li>URL: <a href="https://support.thrustmaster.com/" target="_blank">https://support.thrustmaster.com/</a></li>
+                        </ul>
+                    </li>
+                    <li><strong>bHaptics Player:</strong> Install the PC software for your TactSuit.
+                        <ul>
+                            <li>URL: <a href="https://www.bhaptics.com/support/download" target="_blank">https://www.bhaptics.com/support/download</a></li>
+                            <li>Configuration: Launch the software and confirm it shows your vest as "paired."</li>
+                        </ul>
+                    </li>
+                    <li><strong>VoiceAttack:</strong> Install this (it's premium software, but has a trial).
+                        <ul>
+                            <li>URL: <a href="https://voiceattack.com/" target="_blank">https://voiceattack.com/</a></li>
+                            <li>Configuration: Train the Windows Speech Recognition engine for your voice. In VoiceAttack, create a new profile and start adding commands (e.g., "Gear Up" -> press "G" key).</li>
+                        </ul>
+                    </li>
+                    <li><strong>OpenXR Toolkit:</strong> This is the key "fusion" component.
+                        <ul>
+                            <li>URL: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
+                            <li>Configuration: Install it. Launch the "OpenXR Toolkit Companion" app.</li>
+                            <li><strong>Eye-Tracking (Quest Pro):</strong> To enable eye-tracking, you must use Oculus Link (wired or wireless). In the Oculus PC App, go to Settings > Beta and enable "Developer Runtime Features" and "Eye tracking over Oculus Link". In the headset, enable Developer Mode and enable Eye Tracking in the settings. The OpenXR Toolkit will now detect it.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Development Environments (For Custom Apps):</strong>
+                <ul>
+                    <li>Unity: (with OpenXR Plugin) or Unreal Engine (with OpenXR Plugin).</li>
+                    <li>Visual Studio: For C# (Unity) or C++ (Unreal) development.</li>
+                </ul>
+            </li>
+            <li><strong>Key APIs & SDKs (For Custom Apps):</strong>
+                <ul>
+                    <li>OpenXR API: The core standard for cross-platform VR/AR development.</li>
+                    <li>Meta Quest SDK (Oculus Integration): Required for Unity/Unreal to access specific Quest features like Passthrough and Eye/Face Tracking.</li>
+                    <li>Oculus Voice SDK: For integrating speech-recognition natively into a custom app (an alternative to VoiceAttack).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 id="part3">Part 3: Development & Final Presentation</h2>
+
+        <h3 id="schematics" class="fade-in">3.1. Technical Schematics & Visualizations</h3>
+        
+        <h4 class="fade-in">System Hardware Architecture (Schematic)</h4>
+        <p class="fade-in">This diagram shows the physical connection of all components.</p>
+        <pre class="fade-in">
+                  [GAMING PC]
+                      |
+        +-------------+-------------+
+        | (USB 3.0)   | (USB 3.0)   | (USB-C / DP)
+        |             |             |
+ [HOTAS Throttle]  [HOTAS Stick]  [Oculus Link]
+                                      |
+                                  [Meta Quest Pro]
+                                      |
+       (Bluetooth)--------------------+----(Wi-Fi 6E / Air Link)
+        |                                   |
+[bHaptics Vest]                         [Network Router]
+        |
+[Antlion ModMic (Wireless)]</pre>
+
+        <h4 class="fade-in">Software Data Flow (Schematic)</h4>
+        <p class="fade-in">This diagram shows how information moves between the software components.</p>
+        <pre class="fade-in">
+ INPUT DEVICES         MIDDLEWARE                 APPLICATION
++---------------+   +-------------------+
+|               |   |  VoiceAttack      |----(Keyboard Macros)---+
+|  Microphone   |-->| (Speech-to-Text)  |                        |
+|               |   +-------------------+                        |
++---------------+                                                |
+                                                                 v
++---------------+   +-------------------+   +----------------+   +---------------+
+|               |   |  HOTAS Drivers    |   |                |   |               |
+|  HOTAS        |-->| (T.A.R.G.E.T.)    |-->|  SteamVR /     |-->|  DCS World /  |
+|               |   |                   |   |  Oculus Runtime|   |  VTOL VR      |
++---------------+   +-------------------+   |                |   |               |
+                                            |                |   | (The Sim)     |
++---------------+   +-------------------+   |                |   |               |
+|               |   |  OpenXR Toolkit   |   |                |   |               |
+|  Quest Pro    |-->| (Gaze Data)       |-->|                |   |               |
+| (Eye-Tracker) |   |                   |   |                |   |               |
+|               |   +-------------------+   +----------------+   +---------------+
++---------------+                                                      |
+                                                                       |
+ (Game Audio/Events)---------------------------------------------------+
+                                                                       |
+                                 +-------------------+                 v
+                                 | bHaptics Player   |          +---------------+
+                                 | (Audio-to-Haptic/ |<---------|               |
+                                 |  Native SDK)      |          | Haptic Vest   |
+                                 +-------------------+          | (Feedback)    |
+                                                                +---------------+
+</pre>
+
+        <h3 id="presentation" class="fade-in">3.2. Final Product Presentation</h3>
+
+        <h4 class="fade-in">System Summary:</h4>
+        <p class="fade-in">The Multi-Function Tactical System (MFTS) is a fully integrated hardware and software suite that transforms the Meta Quest platform into a high-fidelity simulation cockpit. By "fusing" best-in-class peripherals, the system provides a holistic, tactile, and deeply immersive experience. It successfully maps real-world F-35-style "next generation" combat concepts—such as voice-actuated commands, off-boresight eye-tracking, and mixed-reality sensor displays (DAS)—to a functional and achievable consumer-grade setup.</p>
+        
+        <h4 class="fade-in">Capabilities:</h4>
+        <ul class="fade-in">
+            <li><strong>Hands-Free Interaction:</strong> Full cockpit control via VoiceAttack, allowing the user to keep their hands on the HOTAS.</li>
+            <li><strong>Look-to-Lock Targeting:</strong> Native eye-tracking (via Quest Pro/OpenXR) for realistic HOBS targeting.</li>
+            <li><strong>Tactile Immersion:</strong> Haptic feedback (via bHaptics) simulates G-forces, impacts, and environmental cues.</li>
+            <li><strong>True HMDS Simulation:</strong> Leverages high-fidelity sims (DCS World, VTOL VR) to replicate modern HMDS data.</li>
+            <li><strong>Mixed-Reality DAS (Conceptual):</strong> Uses Quest passthrough to simulate the "see-through-the-cockpit" Distributed Aperture System, blending the real world with virtual sensor overlays.</li>
+        </ul>
+
+        <h4 class="fade-in">Demonstration Plan (DCS World: F-35 Module):</h4>
+        <ul class="fade-in">
+            <li><strong>Phase 1: CNI & ALIS (Startup):</strong>
+                <ul>
+                    <li>User loads into a "cold and dark" F-35 on the carrier deck.</li>
+                    <li>User uses VoiceAttack to run the startup checklist ("APU start," "Engine start," "Align INS").</li>
+                    <li>User uses VoiceAttack to contact the tower and request taxi.</li>
+                </ul>
+            </li>
+            <li><strong>Phase 2: HOTAS & HMDS (Takeoff & Navigation):</strong>
+                <ul>
+                    <li>User taxis and takes off using the Thrustmaster HOTAS.</li>
+                    <li>All primary flight data (speed, altitude, heading) is visible on the in-game HMDS.</li>
+                    <li>bHaptics vest provides vibration feedback from the catapult launch and landing gear retraction.</li>
+                </ul>
+            </li>
+            <li><strong>Phase 3: Sensors & Targeting (Combat):</strong>
+                <ul>
+                    <li>User commands wingman via VoiceAttack ("Engage my target").</li>
+                    <li>User detects an enemy aircraft on the AESA radar (in-game MFD).</li>
+                    <li>User looks at the target. The eye-tracking (via OpenXR) cues the AIM-9X missile.</li>
+                    <li>User fires the missile "off-boresight" while maneuvering.</li>
+                </ul>
+            </li>
+            <li><strong>Phase 4: EW & DAS (Defense):</strong>
+                <ul>
+                    <li>User receives an RWR "lock" warning tone. The bHaptics vest buzzes from the 4-o'clock position.</li>
+                    <li>User looks "down and right" through the cockpit floor. The passthrough camera feed (simulating DAS) activates, showing the real-world floor, but an in-game "EOTS" overlay points to a SAM site.</li>
+                    <li>User is "hit" by AA fire. The bHaptics vest provides a sharp jolt. An audio "OBOGS FAIL" warning plays, and the user's haptic vest pulses with a "hypoxia" effect.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 id="resources" class="fade-in">3.3. Resource Appendix</h3>
+
+        <h4 class="fade-in">Hardware Product Pages:</h4>
+        <ul class="fade-in">
+            <li>Meta Quest Pro: <a href="https://www.meta.com/quest/quest-pro/" target="_blank">https://www.meta.com/quest/quest-pro/</a></li>
+            <li>Thrustmaster HOTAS Warthog: <a href="https://www.thrustmaster.com/products/hotas-warthog/" target="_blank">https://www.thrustmaster.com/products/hotas-warthog/</a></li>
+            <li>Logitech G X56: <a href="https://www.logitechg.com/en-us/products/space/x56-space-flight-simulator-controller.html" target="_blank">https://www.logitechg.com/en-us/products/space/x56-space-flight-simulator-controller.html</a></li>
+            <li>bHaptics TactSuit X40: <a href="https://www.bhaptics.com/tactsuit/tactsuit-x40" target="_blank">https://www.bhaptics.com/tactsuit/tactsuit-x40</a></li>
+            <li>Pupil Labs Neon: <a href="https://pupil-labs.com/products/neon/" target="_blank">https://pupil-labs.com/products/neon/</a></li>
+            <li>VR Optician: <a href="https://vroptician.com/" target="_blank">https://vroptician.com/</a></li>
+        </ul>
+
+        <h4 class="fade-in">Software & SDK Documentation:</h4>
+        <ul class="fade-in">
+            <li>VoiceAttack: <a href="https://voiceattack.com/" target="_blank">https://voiceattack.com/</a></li>
+            <li>OpenXR Toolkit: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
+            <li>Oculus Developer (Link/SDK): <a href="https://developer.oculus.com/documentation/" target="_blank">https://developer.oculus.com/documentation/</a></li>
+            <li>OpenXR Specification: <a href="https://www.khronos.org/openxr/" target="_blank">https://www.khronos.org/openxr/</a></li>
+            <li>Unity OpenXR Plugin: <a href="https://docs.unity3d.com/Packages/com.unity.xr.openxr@latest" target="_blank">https://docs.unity3d.com/Packages/com.unity.xr.openxr@latest</a></li>
+        </ul>
+
+        <h4 class="fade-in">Technical Forums & Communities:</h4>
+        <ul class="fade-in">
+            <li>r/hoggit (DCS): <a href="https://www.reddit.com/r/hoggit/" target="_blank">https://www.reddit.com/r/hoggit/</a></li>
+            <li>DCS World Forums: <a href="https://forum.dcs.world/" target="_blank">https://forum.dcs.world/</a></li>
+            <li>VTOL VR Discord: (Available via the game's Steam page)</li>
+            <li>OpenXR Toolkit Discord: (Available via the toolkit's website)</li>
+        </ul>
+
+        <h4 class="fade-in">Academic & Industry Papers (Conceptual):</h4>
+        <ul class="fade-in">
+            <li>(Sensor Fusion): Search for "Sensor Fusion in Virtual Reality" on IEEE Xplore or Google Scholar for academic papers on combining input data.</li>
+            <li>(HMDS): Search for "F-35 Helmet Mounted Display System" for industry articles (e.g., from BAE Systems, Collins Aerospace) describing the real-world counterpart.</li>
+        </ul>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Collapsible Accordion (Part 1) ---
+            const systemCards = document.querySelectorAll('.system-card');
+            systemCards.forEach(card => {
+                const header = card.querySelector('h3');
+                const content = card.querySelector('.collapsible-content');
+                
+                header.addEventListener('click', () => {
+                    // Close all other cards
+                    systemCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('active')) {
+                            otherCard.classList.remove('active');
+                            otherCard.querySelector('.collapsible-content').classList.remove('active');
+                        }
+                    });
+
+                    // Toggle the clicked card
+                    card.classList.toggle('active');
+                    content.classList.toggle('active');
+                });
+            });
+
+            // --- Scroll-Spy for Sidebar Nav ---
+            const sections = document.querySelectorAll('h2[id], h3[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3 // 30% of the section must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Add active class to the corresponding link
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+
+            // --- Fade-in Animations on Scroll ---
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const fadeObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target); // Stop observing once it's visible
+                    }
+                });
+            }, { threshold: 0.1 }); // 10% visible
+
+            fadeElements.forEach(el => {
+                fadeObserver.observe(el);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
