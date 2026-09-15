@@ -1,61 +1,95 @@
+# Quest-MFTS — Multi-Function Tactical Simulation System for Meta Quest
 
+**Author:** Joe Nasr / QuestRequestVR  
+**Research series:** Joe Nasr Quest Research  
+**Live project:** https://joenasriani.github.io/quest-mfts/  
+**Author record:** https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html  
+**Status:** Systems concept and feasibility study; baseline components are commercially available, while the complete integrated system has not been independently validated in this repository
 
+## Overview
 
+Quest-MFTS explores how consumer XR hardware and commercially available peripherals could be combined into an immersive simulation cockpit. The project examines the integration of Meta Quest-class headsets with voice control, eye tracking, HOTAS input, haptics, passthrough mixed reality, OpenXR tooling, and simulator software.
 
-GO TO:
-https://joenasraiani.github.io/quest-mfts/
+The core research question is: **how far can an integrated, consumer-accessible XR system approximate selected hands-on, heads-up interaction patterns found in advanced simulation environments without requiring a purpose-built military display stack?**
 
+The project is relevant to **Meta Quest engineers, XR developers, VR simulation developers, AI builders, tech builders, creative technologists, human-computer interaction researchers, hardware-software integrators, technical educators, serious-simulation teams, and advanced VR enthusiasts**.
 
+## Research areas
 
-# Project: Multi-Function Tactical System (MFTS) for Meta Quest
+- Meta Quest and OpenXR development
+- VR / MR cockpit interaction
+- Human-computer interaction and spatial interfaces
+- Eye tracking and gaze-driven interaction
+- Speech interfaces and voice command systems
+- Haptics and embodied feedback
+- HOTAS and peripheral integration
+- Simulation systems architecture
+- Sensor-fusion-inspired interface design
+- AI-assisted simulation, training, and multimodal control research
 
-## 1. Project Overview
+## Baseline system concept
 
-The Multi-Function Tactical System (MFTS) is a comprehensive project to design and integrate a next-generation, immersive simulation cockpit.
+The proposed architecture combines multiple commercially available subsystems:
 
-The core vision is to "fuse" commercially available hardware (like the Meta Quest Pro/3 headset) with a stack of specialized peripherals and middleware. The goal is to replicate the "hands-on, heads-up" operational capabilities of an advanced fighter, such as the F-35, for high-fidelity PC-based simulators (e.g., *DCS World*, *VTOL VR*).
+- **Speech recognition** for hands-free commands and simulator interaction.
+- **Head-mounted display** as the primary immersive visual interface.
+- **Gaze / eye-tracking input** where supported by the headset and software stack.
+- **HOTAS integration** for tactile aircraft-style controls.
+- **Haptic feedback** for events, alerts, impacts, or simulator state changes.
+- **Simulator sensor displays** represented inside the immersive environment.
+- **Audio / haptic warning channels** for directional or priority cues.
+- **Communications and navigation interfaces** integrated into the simulated workflow.
+- **Middleware / OpenXR integration** connecting headset, simulator, and peripherals.
+- **Mission-planning and logistics interfaces** as a higher-level simulation layer.
 
-This system moves beyond a simple "VR headset and joystick" setup by integrating voice commands, eye-tracking, and haptic feedback into one cohesive, "fused" architecture.
+## Mixed-reality development direction
 
-## 2. Core Features (Baseline System)
+A future-facing part of the project explores a transition from closed VR toward mixed reality. The concept considers passthrough and scene-understanding APIs as tools for blending physical controls, desks, tablets, and room geometry with simulator information.
 
-The standard MFTS is built on a "Sensor Fusion Architecture," combining the following 10 sub-systems:
+Potential research directions include:
 
-* **Speech-Recognition:** (via *VoiceAttack*) for hands-free control of checklists, radios, and wingmen.
-* **Helmet-Mounted Display (HMDS):** The VR headset itself, used as the primary flight and targeting display.
-* **Off-Boresight Targeting:** (via Quest Pro Eye-Tracking + *OpenXR Toolkit*) to cue and lock targets simply by looking at them.
-* **HOTAS Integration:** (e.g., *Thrustmaster Warthog*) for tactile, muscle-memory control of the aircraft.
-* **Simulated Life Support:** (via *bHaptics*) for tactile feedback simulating G-forces, impacts, and system failures (e.g., OBOGS).
-* **Advanced Sensor Simulation:** Leveraging in-game sensors (AESA, DAS, EOTS) and displaying them on the HMDS.
-* **Electronic Warfare Suite:** Using haptics and audio to provide directional threat warnings (RWR, MWS).
-* **CNI Suite:** Integrating voice commands with in-game radios and navigation.
-* **Sensor Fusion:** The software backbone (*OpenXR Toolkit*, *SteamVR*) that makes all peripherals work as a single device.
-* **Logistics & Management:** The in-game "meta" layer of mission planning and re-arming.
+1. spatially registered simulator data around physical controls;
+2. real-world peripheral visibility without leaving the immersive session;
+3. gaze-aware information placement;
+4. mixed physical/virtual command-and-control surfaces;
+5. multimodal interaction combining gaze, speech, hands, HOTAS, audio, and haptics.
 
-## 3. The Upgrade Path: Block 4 & Future-Proofing
+## Project status
 
-This is the primary conceptual focus of the project, defining the evolution from a Virtual Reality (VR) system to a true Mixed Reality (MR) tactical environment.
+Many individual components discussed here are available today as consumer hardware or software. **That does not mean the complete proposed architecture has been proven as an end-to-end integrated system.**
 
-The "Block 4" upgrade is not a single piece of hardware but a developmental framework that relies on next-generation headset capabilities and new software APIs.
+The earlier description of the project as “90% achievable” was too precise without a published requirements matrix or validation method. The defensible status is:
 
-### Core Concept:
-To leverage high-resolution, wide-FOV color passthrough (as seen in the Meta Quest 3 and Pro) to create a true **Distributed Aperture System (DAS)**. Instead of being fully blind to the real world, the pilot can "see through" the virtual cockpit to view their real-world environment, with tactical data overlaid on top.
+- **Baseline components:** largely available as separate products or software capabilities.
+- **Integrated architecture:** feasible in parts, but requires implementation and compatibility testing.
+- **Advanced mixed-reality / “Block 4” concepts:** exploratory and dependent on headset capabilities, APIs, simulator integration, and custom development.
 
-### Implementation Method:
+A proper validation package should document headset and firmware versions, simulator versions, peripheral compatibility, interaction latency, tracking behavior, failure cases, frame rate, and repeatable integration steps.
 
-1.  **Hardware (Future):** Next-generation headsets with improved passthrough cameras (higher resolution, better low-light, wider dynamic range).
-2.  **Software (Key APIs):**
-    * **Meta Passthrough API:** To programmatically blend the real-world camera feed with the virtual game world.
-    * **OpenXR Scene Understanding:** To allow the system to "map" the real-world room.
+## Why this matters
 
-### Resulting Capabilities (The "Upgrade"):
+Quest-MFTS is useful beyond flight simulation. It is a systems-thinking exercise in **multimodal immersive control**: how visual information, physical controls, gaze, voice, haptics, and software state can be fused into one coherent interface. That makes the project relevant to AI interface research, spatial computing, immersive training, robotics teleoperation, digital twins, simulation engineering, and next-generation human-machine interfaces.
 
-* **True DAS Simulation:** When a pilot looks "down through the floor" of their F-35, the system will not show a 3D model of the ground. Instead, it will activate the headset's passthrough cameras, showing the **pilot's real-world floor, feet, and rudder pedals**, with the in-game targeting (EOTS) and sensor data projected directly onto that real-world view.
-* **Mixed-Reality C2:** By using *OpenXR Scene Understanding*, the system could identify the pilot's real desk and walls. A custom "Tactical C2" app could then project mission maps, comms windows, or strategic data onto these real surfaces, existing *alongside* the virtual cockpit.
-* **Seamless Interaction:** The pilot could glance at a real-world tablet running a navigation app, then look back "into" the cockpit to engage a target, all without removing the headset.
+## Limitations
 
-## 4. Project Status
+- This is not an operational military system and should not be represented as one.
+- Comparisons to advanced aircraft systems describe interface inspiration, not functional equivalence.
+- Hardware/API support changes across Quest models and software releases.
+- Full-system performance and interoperability require direct testing.
+- The work is a technical research / feasibility study, not a certification or safety claim.
 
-This project guide documents a system that is **90% achievable today** using existing hardware (Quest Pro, bHaptics, VoiceAttack, OpenXR Toolkit).
+## Related research
 
-The **"Block 4" component is conceptual** and serves as a future development roadmap. It relies on deeper, custom software development and the maturation of Mixed Reality APIs for its full implementation.
+Joe Nasr Research Registry:  
+https://joenasriani.github.io/joe-research-registry/
+
+Author / provenance record:  
+https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html
+
+QuestRequestVR:  
+https://linktr.ee/questrequestvr
+
+## Citation
+
+**Joe Nasr. _Quest-MFTS: Multi-Function Tactical Simulation System for Meta Quest._ QuestRequestVR.**  
+Repository: https://github.com/Joenasriani/quest-mfts
