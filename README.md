@@ -6,6 +6,7 @@
 **Research abstract:** https://joenasriani.github.io/quest-mfts/research.html  
 **Research collection:** https://joenasriani.github.io/joe-research-registry/quest-research.html  
 **Author record:** https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html  
+**Canonical identity:** https://joe-nasr-signals.vercel.app/v2/  
 **Status:** Systems concept and feasibility study; baseline components are commercially available, while the complete integrated system has not been independently validated in this repository  
 **Primary field:** XR Simulation Systems / Multimodal Human-Machine Interfaces  
 **Specialisms:** Meta Quest simulation engineering, OpenXR, gaze interaction, speech interfaces, haptics, HOTAS integration, mixed-reality cockpit interfaces
