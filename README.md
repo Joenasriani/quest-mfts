@@ -3,6 +3,8 @@
 **Author:** Joe Nasr / QuestRequestVR  
 **Research series:** Joe Nasr Quest Research  
 **Live project:** https://joenasriani.github.io/quest-mfts/  
+**Research abstract:** https://joenasriani.github.io/quest-mfts/research.html  
+**Research collection:** https://joenasriani.github.io/joe-research-registry/quest-research.html  
 **Author record:** https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html  
 **Status:** Systems concept and feasibility study; baseline components are commercially available, while the complete integrated system has not been independently validated in this repository
 
