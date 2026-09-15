@@ -1,0 +1,27 @@
+name: Legacy search cleanup
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/legacy-search-cleanup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enrich legacy page metadata
+        run: |
+          sed -i '/<meta name="viewport"/a\    <meta name="description" content="Quest-MFTS by Joe Nasr explores Meta Quest and OpenXR simulation with gaze, speech, HOTAS, haptics and mixed-reality human-machine interfaces.">\n    <meta name="author" content="Joe Nasr">\n    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">\n    <link rel="canonical" href="https://joenasriani.github.io/quest-mfts/">' index.html
+      - name: Commit change
+        run: |
+          git config user.name "Joe Nasr Research Maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Add search metadata to legacy project page"
+          git push
