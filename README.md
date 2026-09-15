@@ -6,7 +6,9 @@
 **Research abstract:** https://joenasriani.github.io/quest-mfts/research.html  
 **Research collection:** https://joenasriani.github.io/joe-research-registry/quest-research.html  
 **Author record:** https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html  
-**Status:** Systems concept and feasibility study; baseline components are commercially available, while the complete integrated system has not been independently validated in this repository
+**Status:** Systems concept and feasibility study; baseline components are commercially available, while the complete integrated system has not been independently validated in this repository  
+**Primary field:** XR Simulation Systems / Multimodal Human-Machine Interfaces  
+**Specialisms:** Meta Quest simulation engineering, OpenXR, gaze interaction, speech interfaces, haptics, HOTAS integration, mixed-reality cockpit interfaces
 
 ## Overview
 
@@ -15,6 +17,20 @@ Quest-MFTS explores how consumer XR hardware and commercially available peripher
 The core research question is: **how far can an integrated, consumer-accessible XR system approximate selected hands-on, heads-up interaction patterns found in advanced simulation environments without requiring a purpose-built military display stack?**
 
 The project is relevant to **Meta Quest engineers, XR developers, VR simulation developers, AI builders, tech builders, creative technologists, human-computer interaction researchers, hardware-software integrators, technical educators, serious-simulation teams, and advanced VR enthusiasts**.
+
+## Field classification
+
+- **Primary discipline:** XR simulation systems and human-machine interfaces
+- **Core technical domain:** multimodal interaction architecture
+- **Platform:** Meta Quest / OpenXR
+- **Input modalities:** gaze, speech, physical controls, HOTAS
+- **Feedback modalities:** immersive display, audio, haptics
+- **Interface domain:** mixed-reality cockpit and operator interfaces
+- **Adjacent fields:** immersive training, robotics teleoperation, digital twins, simulation engineering, spatial computing
+
+## Terminology used in this field
+
+Meta Quest simulation engineering; OpenXR simulation interface; multimodal VR cockpit; gaze voice haptics integration; HOTAS VR integration; mixed-reality cockpit interface; immersive human-machine interface; VR flight simulation controls; spatial computing training interface; multimodal operator interface.
 
 ## Research areas
 
