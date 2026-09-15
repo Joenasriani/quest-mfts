@@ -1,0 +1,19 @@
+name: Finalize A2 identity
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/finalize-a2-identity.yml]
+permissions: {contents: write}
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('README.md'); s=p.read_text(); marker='**Author record:** https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html  \n'; add=marker+'**Canonical identity:** https://joe-nasr-signals.vercel.app/v2/  \n'; s=s if '**Canonical identity:**' in s else s.replace(marker,add); p.write_text(s)
+          p=Path('research.html'); s=p.read_text(); s=re.sub(r'"author":\{"@type":"Person","name":"Joe Nasr","url":"https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html","sameAs":\[[^\]]*\]\}', '"author":{"@type":"Person","@id":"https://joe-nasr-signals.vercel.app/v2/#joe-nasr","name":"Joe Nasr","url":"https://joe-nasr-signals.vercel.app/v2/","sameAs":["https://github.com/Joenasriani","https://www.linkedin.com/in/joenasrprofile","https://linktr.ee/joenasr"]}', s); p.write_text(s)
+      - run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"; git rm .github/workflows/finalize-a2-identity.yml; git add README.md research.html; git commit -m "Link Quest MFTS to canonical Joe Nasr Person ID"; git push
