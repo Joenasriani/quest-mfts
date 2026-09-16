@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://joenasriani.github.io/quest-mfts/sitemap.xml
