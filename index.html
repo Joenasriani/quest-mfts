@@ -7,7 +7,7 @@
     <meta name="author" content="Joe Nasr">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
     <link rel="canonical" href="https://joenasriani.github.io/quest-mfts/">
-    <title>Multi-Function Tactical System - Development Guide</title>
+    <title>Multi-Function Tactical Simulation System - Prototype Research</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -325,7 +325,7 @@
                 <a href="#part3" class="nav-link">Part 3: Presentation</a>
                 <ul>
                     <li><a href="#schematics" class="nav-link">3.1. Schematics</a></li>
-                    <li><a href="#presentation" class="nav-link">3.2. Final Product</a></li>
+                    <li><a href="#presentation" class="nav-link">3.2. Proposed Prototype</a></li>
                     <li><a href="#resources" class="nav-link">3.3. Resource Appendix</a></li>
                 </ul>
             </li>
@@ -333,10 +333,11 @@
     </nav>
 
     <main class="content">
-        <h1>Multi-Function Tactical System: Development Guide</h1>
+        <h1>Multi-Function Tactical Simulation System: Prototype Research</h1>
+<p><strong>Status: research for a proposed simulation prototype.</strong> This document explores consumer VR hardware, physical controls, voice input and haptics. It does not document a completed integrated system or validated performance. Named products and simulator features are candidate components; compatibility requires verification for each device, software version and application.</p>
 
         <h2 id="part1">Part 1: System Component Specifications & Application Matrix</h2>
-        <p class="fade-in">This section details the 11 specified systems, translating their real-world tactical functions into a practical VR/AR implementation using a Meta Quest headset.</p>
+        <p class="fade-in">This section outlines 11 proposed simulation components. Individual product features do not establish that the complete combination works.</p>
 
         <div class="system-card fade-in" id="sys1">
             <h3>1. Speech-Recognition System</h3>
@@ -344,7 +345,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>A software layer that translates user voice commands into in-game keyboard or controller inputs, allowing for hands-free operation of complex systems (e.g., "Gear up," "Contact tower," "Fence in").</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A quality microphone (either the built-in Meta Quest Pro/3 mic or a dedicated external mic like an Antlion ModMic).</li>
                     <li><strong>Software:</strong> VoiceAttack (PC software) is the industry standard. It runs in the background, intercepts speech via the Windows Speech Recognition engine, and executes pre-programmed macros.</li>
@@ -365,7 +366,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>The VR headset itself, enhanced with software to mimic advanced military HMDS features. This includes overlaying critical flight/targeting data and simulating "Gen 3 night vision" by using the headset's passthrough cameras.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> Meta Quest Pro (preferred for comfort and mixed reality) or Meta Quest 3 (superior passthrough camera quality). Prescription lens inserts (e.g., from VR Optician) for users who wear glasses.</li>
                     <li><strong>Software:</strong>
@@ -390,11 +391,11 @@
                 <h4>Core Concept & Function</h4>
                 <p>Allows the user to lock onto targets simply by looking at them, enabling "high off-boresight" (HOBS) missile launches without pointing the aircraft's nose at the target.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware (Path 1):</strong> Meta Quest Pro, which has integrated, native eye-tracking.</li>
                     <li><strong>Hardware (Path 2):</strong> Meta Quest 3 + Pupil Labs Neon eye-tracking add-on.</li>
-                    <li><strong>Software:</strong> OpenXR Toolkit. This middleware is essential. It intercepts the eye-tracking data from the Quest Pro (via Oculus Link) or the Pupil Labs add-on and exposes it to the game. Many sims (like DCS World) can be configured to map "gaze" as a sensor input.</li>
+                    <li><strong>Software:</strong> OpenXR Toolkit. Compatibility with this middleware requires verification. It intercepts the eye-tracking data from the Quest Pro (via Oculus Link) or the Pupil Labs add-on and exposes it to the game. Many sims (like DCS World) can be configured to map "gaze" as a sensor input.</li>
                 </ul>
 
                 <h4>Primary Gaming/Application Scenarios</h4>
@@ -411,7 +412,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>A physical controller setup (a joystick and a separate throttle) that replicates a real aircraft's controls. This provides tactile feedback and muscle memory for flight, freeing up the VR controllers.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A PC-compatible HOTAS system.
                         <ul>
@@ -436,7 +437,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>A system to simulate the pilot's physical state and environment. This includes G-force effects, hypoxia (simulated OBOGS - On-Board Oxygen Generating System - failure), and impact/damage feedback.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A haptic feedback vest, such as the bHaptics TactSuit X40.</li>
                     <li><strong>Software:</strong>
@@ -462,7 +463,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>The in-game simulation of advanced sensor suites. AESA (Active Electronically Scanned Array) radar, DAS (Distributed Aperture System - "see-through" cameras), and EOTS (Electro-Optical Targeting System - "sniper pod").</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A high-resolution HMDS (Quest Pro/3) to clearly read the detailed MFD (Multi-Function Display) and HMDS readouts.</li>
                     <li><strong>Software (In-Game):</strong> This is almost entirely simulated by the game itself.
@@ -487,7 +488,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>An in-game system that simulates a Radar Warning Receiver (RWR), missile launch warnings (MWS), and countermeasures (chaff/flares).</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> Haptic Vest (bHaptics) and good headphones.</li>
                     <li><strong>Software:</strong>
@@ -512,7 +513,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>Simulates the complex radio, navigation (TACAN/GPS), and IFF (Identify Friend or Foe) systems of a modern aircraft.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> HOTAS (for Push-to-Talk buttons), Speech-Recognition System (for commands).</li>
                     <li><strong>Software:</strong>
@@ -537,7 +538,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>This is the digital backbone of the project. It's the combination of all software and middleware that "fuses" the disparate hardware inputs (HOTAS, Eye-Tracking, Voice, Haptics) and game data into one cohesive experience.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> The PC itself, acting as the central hub.</li>
                     <li><strong>Software:</strong> This is the software stack.
@@ -564,7 +565,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>Simulates the "meta-game" of aircraft maintenance, mission planning, and logistics.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> N/A (purely software).</li>
                     <li><strong>Software:</strong>
@@ -589,7 +590,7 @@
                 <h4>Core Concept & Function</h4>
                 <p>A conceptual framework for future expansion, focusing on next-generation MR/AR features.</p>
                 
-                <h4>Implementation Method</h4>
+                <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> Future headsets with higher-resolution passthrough, wider FoV, and more advanced sensors.</li>
                     <li><strong>Software:</strong> Deeper integration with the Meta Passthrough API and OpenXR Scene Understanding. This would allow a true DAS simulation, where the game could dynamically map your real-world room and overlay tactical data onto your actual walls, or project the in-game world outside your virtual cockpit.</li>
@@ -605,7 +606,7 @@
 
 
         <h2 id="part2">Part 2: Sourcing, Assembly & Integration Guide</h2>
-        <p class="fade-in">This guide provides the practical steps for acquiring and connecting the components.</p>
+        <p class="fade-in">These sourcing and setup notes outline a proposed integration path, not a tested assembly manual. Confirm availability, supported interfaces and simulator compatibility before purchasing components.</p>
 
         <h3 id="sourcing">2.1. Hardware Sourcing</h3>
         
@@ -635,7 +636,7 @@
                     <td>Eye-Tracking (Path 2)</td>
                     <td>Pupil Labs Neon Add-on</td>
                     <td>Pupil Labs Official Website</td>
-                    <td>Specifically designed for Meta Quest 3. Requires DIY installation.</td>
+                    <td>Quest 3 mounting, software support and integration require verification.</td>
                 </tr>
                 <tr>
                     <td>HOTAS (Premium)</td>
@@ -676,7 +677,7 @@
             </tbody>
         </table>
 
-        <h3 id="assembly" class="fade-in">2.2. Physical Assembly Manual</h3>
+        <h3 id="assembly" class="fade-in">2.2. Proposed Assembly</h3>
         <ul class="fade-in">
             <li><strong>PC & Software Prep:</strong> Ensure your PC is VR-ready and has all GPU drivers updated.</li>
             <li><strong>HOTAS Setup:</strong>
@@ -749,11 +750,11 @@
                             <li>Configuration: Train the Windows Speech Recognition engine for your voice. In VoiceAttack, create a new profile and start adding commands (e.g., "Gear Up" -> press "G" key).</li>
                         </ul>
                     </li>
-                    <li><strong>OpenXR Toolkit:</strong> This is the key "fusion" component.
+                    <li><strong>OpenXR Toolkit:</strong> A candidate middleware component; current support and application compatibility require verification.
                         <ul>
                             <li>URL: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
                             <li>Configuration: Install it. Launch the "OpenXR Toolkit Companion" app.</li>
-                            <li><strong>Eye-Tracking (Quest Pro):</strong> To enable eye-tracking, you must use Oculus Link (wired or wireless). In the Oculus PC App, go to Settings > Beta and enable "Developer Runtime Features" and "Eye tracking over Oculus Link". In the headset, enable Developer Mode and enable Eye Tracking in the settings. The OpenXR Toolkit will now detect it.</li>
+                            <li><strong>Eye-Tracking (Quest Pro):</strong> To enable eye-tracking, you must use Oculus Link (wired or wireless). In the Oculus PC App, go to Settings > Beta and enable "Developer Runtime Features" and "Eye tracking over Oculus Link". In the headset, enable Developer Mode and enable Eye Tracking in the settings. Detection and application support require verification for the chosen runtime and software versions.</li>
                         </ul>
                     </li>
                 </ul>
@@ -773,7 +774,7 @@
             </li>
         </ul>
 
-        <h2 id="part3">Part 3: Development & Final Presentation</h2>
+        <h2 id="part3">Part 3: Proposed Architecture & Demonstration</h2>
 
         <h3 id="schematics" class="fade-in">3.1. Technical Schematics & Visualizations</h3>
         
@@ -828,12 +829,12 @@
                                                                 +---------------+
 </pre>
 
-        <h3 id="presentation" class="fade-in">3.2. Final Product Presentation</h3>
+        <h3 id="presentation" class="fade-in">3.2. Proposed Prototype</h3>
 
         <h4 class="fade-in">System Summary:</h4>
-        <p class="fade-in">The Multi-Function Tactical System (MFTS) is a fully integrated hardware and software suite that transforms the Meta Quest platform into a high-fidelity simulation cockpit. By "fusing" best-in-class peripherals, the system provides a holistic, tactile, and deeply immersive experience. It successfully maps real-world F-35-style "next generation" combat concepts—such as voice-actuated commands, off-boresight eye-tracking, and mixed-reality sensor displays (DAS)—to a functional and achievable consumer-grade setup.</p>
+        <p class="fade-in">MFTS is a proposed consumer VR simulation interface combining a headset, physical flight controls, voice commands and haptic feedback. Gaze interaction and mixed-reality overlays are integration questions to investigate. A working combination requires application-specific support and documented testing.</p>
         
-        <h4 class="fade-in">Capabilities:</h4>
+        <h4 class="fade-in">Intended capabilities, subject to integration testing:</h4>
         <ul class="fade-in">
             <li><strong>Hands-Free Interaction:</strong> Full cockpit control via VoiceAttack, allowing the user to keep their hands on the HOTAS.</li>
             <li><strong>Look-to-Lock Targeting:</strong> Native eye-tracking (via Quest Pro/OpenXR) for realistic HOBS targeting.</li>
@@ -842,7 +843,8 @@
             <li><strong>Mixed-Reality DAS (Conceptual):</strong> Uses Quest passthrough to simulate the "see-through-the-cockpit" Distributed Aperture System, blending the real world with virtual sensor overlays.</li>
         </ul>
 
-        <h4 class="fade-in">Demonstration Plan (DCS World: F-35 Module):</h4>
+        <h4 class="fade-in">Proposed simulation scenario:</h4>
+<p>The sequence below describes intended simulator behavior, not a recorded demonstration. Aircraft, gaze controls, haptic events and passthrough overlays require separate compatibility checks and may require custom development. An F-35 scenario does not establish the availability of an official simulator module.</p>
         <ul class="fade-in">
             <li><strong>Phase 1: CNI & ALIS (Startup):</strong>
                 <ul>
