@@ -1,4 +1,4 @@
-# Quest-MFTS — Multi-Function Tactical Simulation System for Meta Quest
+# Quest-MFTS: Multimodal XR Simulation System for Meta Quest
 
 **Author:** Joe Nasr / QuestRequestVR  
 **Research series:** Joe Nasr Quest Research  

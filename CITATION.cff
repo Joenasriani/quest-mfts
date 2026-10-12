@@ -1,13 +1,13 @@
 cff-version: 1.2.0
 message: "If you reference this project, please cite it as below."
-title: "Quest-MFTS: Multi-Function Tactical Simulation System for Meta Quest"
+title: "Quest-MFTS: Multimodal XR Simulation System for Meta Quest"
 type: software
 authors:
   - family-names: Nasr
     given-names: Joe
 repository-code: "https://github.com/Joenasriani/quest-mfts"
 url: "https://joenasriani.github.io/quest-mfts/"
-abstract: "Systems concept and feasibility study for multimodal Meta Quest simulation using gaze, voice, haptics, HOTAS, OpenXR and mixed-reality interfaces."
+abstract: "Systems concept and feasibility study exploring Meta Quest cockpit simulation with OpenXR, voice, supported gaze input, HOTAS and haptics. The complete integrated system remains unvalidated."
 keywords:
   - Meta Quest
   - XR
