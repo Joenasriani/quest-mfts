@@ -351,7 +351,7 @@
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A quality microphone (either the built-in Meta Quest Pro/3 mic or a dedicated external mic like an Antlion ModMic).</li>
-                    <li><strong>Software:</strong> VoiceAttack (PC software) is the industry standard. It runs in the background, intercepts speech via the Windows Speech Recognition engine, and executes pre-programmed macros.</li>
+                    <li><strong>Software:</strong> VoiceAttack is one candidate PC voice-command tool. It runs in the background, intercepts speech via the Windows Speech Recognition engine, and executes pre-programmed macros.</li>
                     <li><strong>Software (Add-on):</strong> HCS VoicePacks (works with VoiceAttack) provides pre-made profiles and professional voice actor responses for popular sims, enhancing immersion.</li>
                 </ul>
 
@@ -367,14 +367,14 @@
             <h3>2. Helmet-Mounted Display System (HMDS) & Enhancements</h3>
             <div class="collapsible-content">
                 <h4>Core Concept & Function</h4>
-                <p>The VR headset itself, enhanced with software to mimic advanced military HMDS features. This includes overlaying critical flight/targeting data and simulating "Gen 3 night vision" by using the headset's passthrough cameras.</p>
+                <p>A proposed display interface for simulated flight and sensor information. Passthrough imagery or a color filter does not provide military night-vision capability.</p>
                 
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> Meta Quest Pro (preferred for comfort and mixed reality) or Meta Quest 3 (superior passthrough camera quality). Prescription lens inserts (e.g., from VR Optician) for users who wear glasses.</li>
                     <li><strong>Software:</strong>
                         <ul>
-                            <li><strong>Night Vision:</strong> A custom shader or filter (e.g., via OpenXR Toolkit) applied to the Quest's color passthrough feed to create a green-tinted, grainy, light-amplified effect.</li>
+                            <li><strong>Simulated low-light display:</strong> A visual effect for a simulator. It does not amplify unavailable scene information.</li>
                             <li><strong>HMDS Overlay:</strong> In-game support. Games like DCS World (F-35, F/A-18, A-10C II, F-16C) and VTOL VR (F-45A) natively project a full HMDS onto the display.</li>
                         </ul>
                     </li>
@@ -383,7 +383,7 @@
                 <h4>Primary Gaming/Application Scenarios</h4>
                 <ul>
                     <li><strong>Primary:</strong> Modern Combat Flight Sims (e.g., DCS: F-35, VTOL VR) where the HMDS is the primary flight instrument.</li>
-                    <li><strong>Secondary:</strong> Tactical Shooters (e.g., Onward, Pavlov) using passthrough night vision for mixed-reality "room clearing" scenarios.</li>
+                    <li><strong>Possible application:</strong> A custom mixed-reality simulation, subject to application and passthrough API support.</li>
                 </ul>
             </div>
         </div>
@@ -392,13 +392,13 @@
             <h3>3. Off-Boresight Targeting System (Eye-Tracking)</h3>
             <div class="collapsible-content">
                 <h4>Core Concept & Function</h4>
-                <p>Allows the user to lock onto targets simply by looking at them, enabling "high off-boresight" (HOBS) missile launches without pointing the aircraft's nose at the target.</p>
+                <p>Proposed simulator interaction: use gaze to select an on-screen target. This requires a supported eye tracker and an application input path; no working integration is demonstrated here.</p>
                 
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware (Path 1):</strong> Meta Quest Pro, which has integrated, native eye-tracking.</li>
-                    <li><strong>Hardware (Path 2):</strong> Meta Quest 3 + Pupil Labs Neon eye-tracking add-on.</li>
-                    <li><strong>Software:</strong> OpenXR Toolkit. Compatibility with this middleware requires verification. It intercepts the eye-tracking data from the Quest Pro (via Oculus Link) or the Pupil Labs add-on and exposes it to the game. Many sims (like DCS World) can be configured to map "gaze" as a sensor input.</li>
+                    <li><strong>Hardware (Path 2):</strong> A proposed external eye-tracking path for Meta Quest 3. Pupil Labs Neon is a candidate requiring confirmation of mounting, runtime support and application integration.</li>
+                    <li><strong>Integration requirement:</strong> Verify gaze availability through the selected runtime and simulator. The repository does not establish a supported OpenXR Toolkit, Quest or Pupil Labs integration, or a DCS gaze-control mapping.</li>
                 </ul>
 
                 <h4>Primary Gaming/Application Scenarios</h4>
@@ -445,7 +445,7 @@
                     <li><strong>Hardware:</strong> A haptic feedback vest, such as the bHaptics TactSuit X40.</li>
                     <li><strong>Software:</strong>
                         <ul>
-                            <li><strong>Native Support:</strong> Games with built-in bHaptics support will provide directional damage, G-force (pressure on chest/back), and weapon fire feedback.</li>
+                            <li><strong>Native Support:</strong> Available haptic events depend on the game and integration. Vibration cues do not reproduce physical G-forces.</li>
                             <li><strong>Audio-to-Haptic:</strong> For other games, the bHaptics software can translate audio cues (like a "breathing" sound file for OBOGS, or high-G "groan" sounds) into vibration.</li>
                             <li><strong>Audio:</strong> A simple sound loop of an OBOGS breathing rhythm can be played in the background for immersion.</li>
                         </ul>
@@ -539,7 +539,7 @@
             <h3>9. Sensor Fusion Architecture</h3>
             <div class="collapsible-content">
                 <h4>Core Concept & Function</h4>
-                <p>This is the digital backbone of the project. It's the combination of all software and middleware that "fuses" the disparate hardware inputs (HOTAS, Eye-Tracking, Voice, Haptics) and game data into one cohesive experience.</p>
+                <p>The proposed integration layer would combine physical controls, gaze, voice, haptics and simulator state. The repository does not provide a tested middleware stack.</p>
                 
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
@@ -712,7 +712,7 @@
             </li>
             <li><strong>(If using Path 2) Eye-Tracking Assembly:</strong>
                 <ul>
-                    <li>Carefully follow the Pupil Labs Neon installation guide to mount the eye-tracking module inside the Meta Quest 3.</li>
+                    <li>Confirm that a suitable mount and documented integration exist before attempting an external eye-tracking build. No validated Quest 3 installation is supplied here.</li>
                 </ul>
             </li>
         </ul>
@@ -757,7 +757,7 @@
                         <ul>
                             <li>URL: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
                             <li>Configuration: Install it. Launch the "OpenXR Toolkit Companion" app.</li>
-                            <li><strong>Eye-Tracking (Quest Pro):</strong> To enable eye-tracking, you must use Oculus Link (wired or wireless). In the Oculus PC App, go to Settings > Beta and enable "Developer Runtime Features" and "Eye tracking over Oculus Link". In the headset, enable Developer Mode and enable Eye Tracking in the settings. Detection and application support require verification for the chosen runtime and software versions.</li>
+                            <li><strong>Eye-tracking:</strong> Consult current vendor documentation for the selected headset, runtime and application. Record versions and confirm that the application receives gaze data before attempting simulator control.</li>
                         </ul>
                     </li>
                 </ul>
@@ -782,7 +782,7 @@
         <h3 id="schematics" class="fade-in">3.1. Technical Schematics & Visualizations</h3>
         
         <h4 class="fade-in">System Hardware Architecture (Schematic)</h4>
-        <p class="fade-in">This diagram shows the physical connection of all components.</p>
+        <p class="fade-in">This diagram shows proposed connections, not an as-built wiring record.</p>
         <pre class="fade-in">
                   [GAMING PC]
                       |
@@ -800,7 +800,7 @@
 [Antlion ModMic (Wireless)]</pre>
 
         <h4 class="fade-in">Software Data Flow (Schematic)</h4>
-        <p class="fade-in">This diagram shows how information moves between the software components.</p>
+        <p class="fade-in">This diagram shows proposed information flow, not a tested integration.</p>
         <pre class="fade-in">
  INPUT DEVICES         MIDDLEWARE                 APPLICATION
 +---------------+   +-------------------+
@@ -840,8 +840,8 @@
         <h4 class="fade-in">Intended capabilities, subject to integration testing:</h4>
         <ul class="fade-in">
             <li><strong>Hands-Free Interaction:</strong> Full cockpit control via VoiceAttack, allowing the user to keep their hands on the HOTAS.</li>
-            <li><strong>Look-to-Lock Targeting:</strong> Native eye-tracking (via Quest Pro/OpenXR) for realistic HOBS targeting.</li>
-            <li><strong>Tactile Immersion:</strong> Haptic feedback (via bHaptics) simulates G-forces, impacts, and environmental cues.</li>
+            <li><strong>Look-to-Lock Targeting:</strong> Proposed gaze-based selection in a simulator, dependent on a verified input mapping.</li>
+            <li><strong>Tactile Immersion:</strong> Proposed vibration cues for simulated events. These do not reproduce sustained physical G-forces.</li>
             <li><strong>True HMDS Simulation:</strong> Leverages high-fidelity sims (DCS World, VTOL VR) to replicate modern HMDS data.</li>
             <li><strong>Mixed-Reality DAS (Conceptual):</strong> Uses Quest passthrough to simulate the "see-through-the-cockpit" Distributed Aperture System, blending the real world with virtual sensor overlays.</li>
         </ul>
@@ -867,7 +867,7 @@
                 <ul>
                     <li>User commands wingman via VoiceAttack ("Engage my target").</li>
                     <li>User detects an enemy aircraft on the AESA radar (in-game MFD).</li>
-                    <li>User looks at the target. The eye-tracking (via OpenXR) cues the AIM-9X missile.</li>
+                    <li>User looks at the target. In the proposed scenario, supported gaze input would select a simulated target; this behavior has not been implemented or verified here.</li>
                     <li>User fires the missile "off-boresight" while maneuvering.</li>
                 </ul>
             </li>
