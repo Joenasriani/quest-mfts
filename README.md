@@ -1,6 +1,5 @@
 # Quest-MFTS: Multimodal XR Simulation System for Meta Quest
 
-**Author:** Joe Nasr / QuestRequestVR  
 **Research series:** Joe Nasr Quest Research  
 **Live project:** https://joenasriani.github.io/quest-mfts/  
 **Research abstract:** https://joenasriani.github.io/quest-mfts/research.html  
@@ -110,5 +109,7 @@ https://linktr.ee/questrequestvr
 
 ## Citation
 
-**Joe Nasr. _Quest-MFTS: Multi-Function Tactical Simulation System for Meta Quest._ QuestRequestVR.**  
+**Joe Nasr. _Quest-MFTS: Multimodal XR Simulation System for Meta Quest._ QuestRequestVR.**  
 Repository: https://github.com/Joenasriani/quest-mfts
+
+Credit: Joe Nasr
