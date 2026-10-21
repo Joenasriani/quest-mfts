@@ -727,7 +727,7 @@
                             <li>Configuration: Go to Settings > Beta and enable "Public Test Channel" for the latest updates.</li>
                         </ul>
                     </li>
-                    <li><strong>SteamVR:</strong> Install this via the Steam store. This is the runtime for most sims.
+                    <li><strong>SteamVR (conditional):</strong> Install only where the chosen simulator and verified PCVR runtime configuration require it; never assume a universal runtime.
                         <ul>
                             <li>URL: <a href="https://store.steampowered.com/app/250820/SteamVR/" target="_blank">https://store.steampowered.com/app/250820/SteamVR/</a></li>
                         </ul>
@@ -770,8 +770,8 @@
             </li>
             <li><strong>Key APIs & SDKs (For Custom Apps):</strong>
                 <ul>
-                    <li>OpenXR API: The core standard for cross-platform VR/AR development.</li>
-                    <li>Meta Quest SDK (Oculus Integration): Required for Unity/Unreal to access specific Quest features like Passthrough and Eye/Face Tracking.</li>
+                    <li>OpenXR API: An XR interface standard; hardware extensions such as eye-gaze require explicit runtime support and application integration.</li>
+                    <li>Meta Quest SDKs: Select currently supported developer packages and APIs for each feature, device, engine and runtime; verify permissions and extension availability.</li>
                     <li>Oculus Voice SDK: For integrating speech-recognition natively into a custom app (an alternative to VoiceAttack).</li>
                 </ul>
             </li>
@@ -862,7 +862,27 @@ Question marks mark UNVERIFIED interfaces. No end-to-end wiring verified.
             </li>
         </ul>
 
-        <h3 id="resources" class="fade-in">3.3. Resource Appendix</h3>
+                <h3 id="compatibility-matrix" class="fade-in">3.3. Compatibility and Evidence Matrix</h3>
+        <p class="fade-in"><strong>Evidence rule:</strong> documented commercial component features are not Quest-MFTS implementations. Conditional means configuration-specific support is required. No row below verifies an end-to-end Quest-MFTS system.</p>
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th scope="col">Pathway</th><th scope="col">Evidence status</th><th scope="col">Required verification</th></tr></thead>
+          <tbody>
+          <tr><td>Quest Pro eye tracking</td><td>Existing headset capability; project integration unverified</td><td>Consent, firmware, runtime and gaze bindings</td></tr>
+          <tr><td>Quest 3 native eye tracking</td><td>Unavailable</td><td>Do not conflate head pointing and eye gaze</td></tr>
+          <tr><td>Quest 3 with external gaze tracker</td><td>Proposed, unverified</td><td>Mount, calibration, transport, API and simulator mapping</td></tr>
+          <tr><td>OpenXR eye-gaze interaction</td><td>Runtime-dependent</td><td><code>XR_EXT_eye_gaze_interaction</code> and <code>supportsEyeGazeInteraction</code> must be available; separate application mapping required</td></tr>
+          <tr><td>HOTAS physical control</td><td>Commercial component available; integration unverified</td><td>Driver, input binding, simulator and version</td></tr>
+          <tr><td>Speech macros</td><td>Commercial tool available; integration unverified</td><td>Profile, backend, command and error behavior</td></tr>
+          <tr><td>bHaptics signals</td><td>SDK available; event adapter unverified</td><td>Simulator events, API, mapping and pairing</td></tr>
+          <tr><td>Quest MR passthrough</td><td>Device/app-dependent</td><td>MR API, permissions, native app and scene registration; not aircraft DAS</td></tr>
+          <tr><td>DCS / VTOL VR simulator mapping</td><td>Unverified for the proposed system</td><td>Exact aircraft, simulator version, supported interfaces and controls</td></tr>
+          <tr><td>Complete Quest-MFTS system</td><td>Not implemented or validated in repository evidence</td><td>Build, integration logs and reproducible measurements</td></tr>
+          </tbody></table></div>
+        <h3 id="verification-protocol" class="fade-in">3.4. Proposed Validation Protocol (No Tests Performed)</h3>
+        <p class="fade-in">Record headset model and firmware, runtime and SDK versions, PC hardware, simulator and aircraft versions, HOTAS driver, speech profile and haptic SDK. Test each interface separately, document unavailable APIs and failed mappings, then measure gaze availability, command success/failure, input-to-feedback latency, frame timing and fallback behavior if an integrated implementation is built. No outcomes or performance values are claimed.</p>
+        <h3 id="antecedents" class="fade-in">3.5. Relevant Prior Art and Technical Sources</h3>
+        <p class="fade-in">Previous work includes <a href="https://doi.org/10.1145/3626481">Aircraft Cockpit Interaction in Virtual Reality with Visual, Auditive, and Vibrotactile Feedback</a> and <a href="https://doi.org/10.16910/jemr.15.3.11">Cognitive Load Estimation in VR Flight Simulator</a>. Neither represents a Quest-MFTS evaluation. Technical sources: <a href="https://registry.khronos.org/OpenXR/specs/1.1/man/html/XrSystemEyeGazeInteractionPropertiesEXT.html">OpenXR eye-gaze runtime properties</a>, <a href="https://github.com/mbucchia/OpenXR-Toolkit/releases">OpenXR Toolkit discontinuation notice</a>, <a href="https://docs.bhaptics.com/sdk/unity/guide">bHaptics SDK guide</a>. See the repository's <a href="https://github.com/Joenasriani/quest-mfts/blob/main/PHASE_2_TECHNICAL_PRIOR_ART.md">source and prior-art register</a> for evidence boundaries.</p>
+        <h3 id="resources" class="fade-in">3.6. Resource Appendix</h3>
 
         <h4 class="fade-in">Hardware Product Pages:</h4>
         <ul class="fade-in">
@@ -888,7 +908,7 @@ Question marks mark UNVERIFIED interfaces. No end-to-end wiring verified.
             <li>r/hoggit (DCS): <a href="https://www.reddit.com/r/hoggit/" target="_blank">https://www.reddit.com/r/hoggit/</a></li>
             <li>DCS World Forums: <a href="https://forum.dcs.world/" target="_blank">https://forum.dcs.world/</a></li>
             <li>VTOL VR Discord: (Available via the game's Steam page)</li>
-            <li>OpenXR Toolkit Discord: (Available via the toolkit's website)</li>
+            <li>OpenXR Toolkit discussions are historical only; this discontinued utility is not a required software dependency.</li>
         </ul>
 
         <h4 class="fade-in">Academic & Industry Papers (Conceptual):</h4>
