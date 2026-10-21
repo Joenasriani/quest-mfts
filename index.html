@@ -548,7 +548,7 @@
                         <ul>
                             <li><strong>PCVR Platform:</strong> SteamVR or Oculus PC App.</li>
                             <li><strong>Drivers:</strong> Thrustmaster/Logitech drivers.</li>
-                            <li><strong>Middleware:</strong> OpenXR Toolkit (to manage eye-tracking and performance) + VoiceAttack (for voice) + bHaptics Player (for haptics).</li>
+                            <li><strong>Proposed integration components:</strong> a simulator-compatible OpenXR runtime, application-specific input mapping, VoiceAttack for supported PC voice macros, and a validated bHaptics interface where available. OpenXR Toolkit is a discontinued third-party utility and is not a general-purpose multimodal middleware or a verified gaze-data bridge. No complete integration stack is supplied here.</li>
                             <li><strong>Application:</strong> The game/sim (DCS World, VTOL VR).</li>
                         </ul>
                     </li>
@@ -556,7 +556,7 @@
 
                 <h4>Primary Gaming/Application Scenarios</h4>
                 <ul>
-                    <li><strong>Primary:</strong> The fully-integrated tactical system.</li>
+                    <li><strong>Primary:</strong> A proposed multimodal cockpit simulation configuration; complete integration is unimplemented and unverified in this repository.</li>
                     <li><strong>Secondary:</strong> Any complex PCVR game where you combine multiple peripherals (e.g., a racing sim with a wheel, pedals, and haptics).</li>
                 </ul>
             </div>
@@ -633,7 +633,7 @@
                     <td>VR Headset (Path 2)</td>
                     <td>Meta Quest 3</td>
                     <td>Meta Store, Amazon, Best Buy</td>
-                    <td>Excellent MR passthrough. Requires 3rd-party eye-tracking.</td>
+                    <td>Color passthrough is available, but Quest 3 has no native eye-tracking sensors. An external eye tracker is an unverified research option, not a supported plug-and-play requirement or demonstrated implementation.</td>
                 </tr>
                 <tr>
                     <td>Eye-Tracking (Path 2)</td>
@@ -839,11 +839,11 @@
         
         <h4 class="fade-in">Intended capabilities, subject to integration testing:</h4>
         <ul class="fade-in">
-            <li><strong>Hands-Free Interaction:</strong> Full cockpit control via VoiceAttack, allowing the user to keep their hands on the HOTAS.</li>
+            <li><strong>Hands-Free Interaction:</strong> Candidate VoiceAttack macros for simulator commands that expose compatible keyboard or control bindings. Complete cockpit coverage is not established.</li>
             <li><strong>Look-to-Lock Targeting:</strong> Proposed gaze-based selection in a simulator, dependent on a verified input mapping.</li>
             <li><strong>Tactile Immersion:</strong> Proposed vibration cues for simulated events. These do not reproduce sustained physical G-forces.</li>
-            <li><strong>True HMDS Simulation:</strong> Leverages high-fidelity sims (DCS World, VTOL VR) to replicate modern HMDS data.</li>
-            <li><strong>Mixed-Reality DAS (Conceptual):</strong> Uses Quest passthrough to simulate the "see-through-the-cockpit" Distributed Aperture System, blending the real world with virtual sensor overlays.</li>
+            <li><strong>HMDS-Inspired Visualization:</strong> Proposed presentation of simulated flight and sensor symbology, subject to the chosen simulator's actual capabilities; not an authentic or validated military helmet-mounted display system.</li>
+            <li><strong>Mixed-Reality Overlay Concept:</strong> A proposed passthrough overlay to combine room imagery with virtual simulator information. Passthrough does not reproduce an aircraft Distributed Aperture System or provide external sensor coverage.</li>
         </ul>
 
         <h4 class="fade-in">Proposed simulation scenario:</h4>
@@ -895,7 +895,7 @@
         <h4 class="fade-in">Software & SDK Documentation:</h4>
         <ul class="fade-in">
             <li>VoiceAttack: <a href="https://voiceattack.com/" target="_blank">https://voiceattack.com/</a></li>
-            <li>OpenXR Toolkit: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
+            <li>OpenXR Toolkit (historical reference only; developer discontinued support in 2024 and advises against new installations): <a href="https://github.com/mbucchia/OpenXR-Toolkit/releases" target="_blank">official release notice</a>.</li>
             <li>Oculus Developer (Link/SDK): <a href="https://developer.oculus.com/documentation/" target="_blank">https://developer.oculus.com/documentation/</a></li>
             <li>OpenXR Specification: <a href="https://www.khronos.org/openxr/" target="_blank">https://www.khronos.org/openxr/</a></li>
             <li>Unity OpenXR Plugin: <a href="https://docs.unity3d.com/Packages/com.unity.xr.openxr@latest" target="_blank">https://docs.unity3d.com/Packages/com.unity.xr.openxr@latest</a></li>
