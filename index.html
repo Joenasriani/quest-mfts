@@ -351,7 +351,7 @@
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> A quality microphone (either the built-in Meta Quest Pro/3 mic or a dedicated external mic like an Antlion ModMic).</li>
-                    <li><strong>Software:</strong> VoiceAttack is one candidate PC voice-command tool. It runs in the background, intercepts speech via the Windows Speech Recognition engine, and executes pre-programmed macros.</li>
+                    <li><strong>Software:</strong> VoiceAttack is a candidate Windows voice-macro tool. Recognition backend, permissions, command bindings, reliability and simulator compatibility must be established for a specific configuration; this project includes no implemented command profile.</li>
                     <li><strong>Software (Add-on):</strong> HCS VoicePacks (works with VoiceAttack) provides pre-made profiles and professional voice actor responses for popular sims, enhancing immersion.</li>
                 </ul>
 
@@ -371,18 +371,18 @@
                 
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
-                    <li><strong>Hardware:</strong> Meta Quest Pro (preferred for comfort and mixed reality) or Meta Quest 3 (superior passthrough camera quality). Prescription lens inserts (e.g., from VR Optician) for users who wear glasses.</li>
+                    <li><strong>Hardware:</strong> Meta Quest Pro (native eye tracking, subject to permission and runtime support) or Meta Quest 3 (passthrough, but no native eye tracking). Prescription lens inserts (e.g., from VR Optician) for users who wear glasses.</li>
                     <li><strong>Software:</strong>
                         <ul>
                             <li><strong>Simulated low-light display:</strong> A visual effect for a simulator. It does not amplify unavailable scene information.</li>
-                            <li><strong>HMDS Overlay:</strong> In-game support. Games like DCS World (F-35, F/A-18, A-10C II, F-16C) and VTOL VR (F-45A) natively project a full HMDS onto the display.</li>
+                            <li><strong>HMDS Overlay:</strong> In-game support. Selected aircraft in DCS World and VTOL VR provide simulator-specific helmet or HUD symbology. Supported aircraft, modules, display modes and VR behavior must be checked individually; no official DCS F-35 module is established here.</li>
                         </ul>
                     </li>
                 </ul>
 
                 <h4>Primary Gaming/Application Scenarios</h4>
                 <ul>
-                    <li><strong>Primary:</strong> Modern Combat Flight Sims (e.g., DCS: F-35, VTOL VR) where the HMDS is the primary flight instrument.</li>
+                    <li><strong>Primary:</strong> Flight simulators with documented VR HUD or helmet symbology, subject to aircraft- and application-specific support.</li>
                     <li><strong>Possible application:</strong> A custom mixed-reality simulation, subject to application and passthrough API support.</li>
                 </ul>
             </div>
@@ -471,10 +471,10 @@
                     <li><strong>Hardware:</strong> A high-resolution HMDS (Quest Pro/3) to clearly read the detailed MFD (Multi-Function Display) and HMDS readouts.</li>
                     <li><strong>Software (In-Game):</strong> This is almost entirely simulated by the game itself.
                         <ul>
-                            <li>DCS World (F-35 module) and VTOL VR (F-45A) both simulate AESA radar (TWS modes), EOTS for ground targeting, and DAS (simulated by projecting sensor video to the pilot's HMDS, allowing them to "look through" the cockpit floor).</li>
+                            <li>Selected flight simulators represent subsets of radar, targeting and helmet-display functions. Feature equivalence with AESA, DAS or EOTS is not established, and this repository does not verify an official DCS F-35 module.</li>
                         </ul>
                     </li>
-                    <li><strong>Software (MR):</strong> A conceptual implementation would use the Meta Quest Passthrough API to render the real-world view when the pilot looks "through" the cockpit floor, overlaying targeting data.</li>
+                    <li><strong>Software (MR):</strong> A hypothetical native Quest MR application could show passthrough room imagery behind virtual simulator panels. It would not reveal the outside world through a simulated aircraft floor or supply simulated aircraft sensor imagery without a separate data source.</li>
                 </ul>
 
                 <h4>Primary Gaming/Application Scenarios</h4>
@@ -596,7 +596,7 @@
                 <h4>Candidate Implementation Approach</h4>
                 <ul>
                     <li><strong>Hardware:</strong> Future headsets with higher-resolution passthrough, wider FoV, and more advanced sensors.</li>
-                    <li><strong>Software:</strong> Deeper integration with the Meta Passthrough API and OpenXR Scene Understanding. This would allow a true DAS simulation, where the game could dynamically map your real-world room and overlay tactical data onto your actual walls, or project the in-game world outside your virtual cockpit.</li>
+                    <li><strong>Software:</strong> Deeper integration with the Meta Passthrough API and OpenXR Scene Understanding. A custom MR application might spatially place virtual panels in a sensed room if a selected device, runtime and scene API provide the required permissions and support. Room passthrough does not recreate aircraft DAS sensors, and this application has not been developed here.</li>
                 </ul>
 
                 <h4>Primary Gaming/Application Scenarios</h4>
@@ -753,10 +753,10 @@
                             <li>Configuration: Train the Windows Speech Recognition engine for your voice. In VoiceAttack, create a new profile and start adding commands (e.g., "Gear Up" -> press "G" key).</li>
                         </ul>
                     </li>
-                    <li><strong>OpenXR Toolkit:</strong> A candidate middleware component; current support and application compatibility require verification.
+                    <li><strong>OpenXR Toolkit (historical reference, not recommended installation):</strong> The developer discontinued support in 2024. Do not treat it as a current gaze-data bridge or required component.
                         <ul>
                             <li>URL: <a href="https://mbucchia.github.io/OpenXR-Toolkit/" target="_blank">https://mbucchia.github.io/OpenXR-Toolkit/</a></li>
-                            <li>Configuration: Install it. Launch the "OpenXR Toolkit Companion" app.</li>
+                            <li>Configuration: Do not install solely on the basis of this proposal. Evaluate currently supported runtimes, official OpenXR extensions and application APIs first.</li>
                             <li><strong>Eye-tracking:</strong> Consult current vendor documentation for the selected headset, runtime and application. Record versions and confirm that the application receives gaze data before attempting simulator control.</li>
                         </ul>
                     </li>
@@ -802,34 +802,16 @@
         <h4 class="fade-in">Software Data Flow (Schematic)</h4>
         <p class="fade-in">This diagram shows proposed information flow, not a tested integration.</p>
         <pre class="fade-in">
- INPUT DEVICES         MIDDLEWARE                 APPLICATION
-+---------------+   +-------------------+
-|               |   |  VoiceAttack      |----(Keyboard Macros)---+
-|  Microphone   |-->| (Speech-to-Text)  |                        |
-|               |   +-------------------+                        |
-+---------------+                                                |
-                                                                 v
-+---------------+   +-------------------+   +----------------+   +---------------+
-|               |   |  HOTAS Drivers    |   |                |   |               |
-|  HOTAS        |-->| (T.A.R.G.E.T.)    |-->|  SteamVR /     |-->|  DCS World /  |
-|               |   |                   |   |  Oculus Runtime|   |  VTOL VR      |
-+---------------+   +-------------------+   |                |   |               |
-                                            |                |   | (The Sim)     |
-+---------------+   +-------------------+   |                |   |               |
-|               |   |  OpenXR Toolkit   |   |                |   |               |
-|  Quest Pro    |-->| (Gaze Data)       |-->|                |   |               |
-| (Eye-Tracker) |   |                   |   |                |   |               |
-|               |   +-------------------+   +----------------+   +---------------+
-+---------------+                                                      |
-                                                                       |
- (Game Audio/Events)---------------------------------------------------+
-                                                                       |
-                                 +-------------------+                 v
-                                 | bHaptics Player   |          +---------------+
-                                 | (Audio-to-Haptic/ |<---------|               |
-                                 |  Native SDK)      |          | Haptic Vest   |
-                                 +-------------------+          | (Feedback)    |
-                                                                +---------------+
+PROPOSED CONFIGURATION ONLY (NOT IMPLEMENTED)
+Microphone --> PC voice macro software --> [supported simulator commands]
+HOTAS ------> PC device driver -------> [simulator control mapping]
+Headset ----> verified PCVR runtime --> [supported VR presentation]
+Quest Pro eye gaze --(permission + compatible API + CUSTOM BRIDGE?)-->
+                                      [optional simulator action mapping]
+Simulator events --(EXPOSED API OR CUSTOM ADAPTER?)--> haptic interface
+                                      --> compatible haptic device
+Quest 3: NO NATIVE EYE GAZE. Passthrough needs a separate MR application.
+Question marks mark UNVERIFIED interfaces. No end-to-end wiring verified.
 </pre>
 
         <h3 id="presentation" class="fade-in">3.2. Proposed Prototype</h3>
