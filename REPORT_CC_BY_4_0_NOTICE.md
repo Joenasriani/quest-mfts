@@ -2,7 +2,8 @@
 
 **Author / credited creator:** Joseph Ribal Nasr  
 **Affiliation:** Independent Researcher  
-**Copyright notice:** © 2026 Joseph Ribal Nasr  
+**Copyright notice:** © 2024–2026 Joseph Ribal Nasr  
+**Project history:** Originally developed in 2024; research documentation revised and expanded in 2026.  
 **License authorized:** Creative Commons Attribution 4.0 International (CC BY 4.0)  
 **License terms:** https://creativecommons.org/licenses/by/4.0/  
 **Scope:** The original Quest-MFTS technical report prose and original author-controlled figures and diagrams, **to the extent that the author holds rights to license them**. This includes the original design explanation and the report's author-controlled visual architecture, scenario, comparison, trade-off and evidence-map materials.
