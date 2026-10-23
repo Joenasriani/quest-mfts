@@ -107,6 +107,14 @@ https://joenasriani.github.io/joe-research-registry/author/joe-nasr.html
 QuestRequestVR:  
 https://linktr.ee/questrequestvr
 
+## Registered research publication
+
+- **Publication title:** Quest-MFTS: A Proposed Multimodal XR Simulation Architecture Using Consumer Headsets and Physical Controls
+- **DOI:** [10.5281/zenodo.23552640](https://doi.org/10.5281/zenodo.23552640)
+- **Zenodo record:** https://zenodo.org/records/23552640
+- **Metadata status:** DOI-to-title association recorded in the Joe Nasr research registrar; live Zenodo record metadata has not been independently cross-checked in this audit.
+- **Evidence boundary:** The publication identifier does not validate an integrated implementation, experimental results, or peer review.
+
 ## Citation
 
 **Joe Nasr. _Quest-MFTS: Multimodal XR Simulation System for Meta Quest._ QuestRequestVR.**  
