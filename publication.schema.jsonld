@@ -1,0 +1,35 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "name": "Quest-MFTS: A Proposed Multimodal XR Simulation Architecture Using Consumer Headsets and Physical Controls",
+  "headline": "Quest-MFTS: A Proposed Multimodal XR Simulation Architecture Using Consumer Headsets and Physical Controls",
+  "description": "Proposed multimodal XR simulation architecture using consumer headsets, physical controls, speech, gaze and haptics.",
+  "author": {
+    "@type": "Person",
+    "name": "Joseph Ribal Nasr",
+    "alternateName": "Joe Nasr",
+    "sameAs": [
+      "https://orcid.org/0009-0004-5698-9097",
+      "https://joe-nasr-signals.vercel.app/"
+    ]
+  },
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.5281/zenodo.23552640",
+    "url": "https://doi.org/10.5281/zenodo.23552640"
+  },
+  "sameAs": [
+    "https://doi.org/10.5281/zenodo.23552640"
+  ],
+  "url": "https://zenodo.org/records/23552640",
+  "mainEntityOfPage": "https://zenodo.org/records/23552640",
+  "datePublished": "2026",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "additionalProperty": {
+    "@type": "PropertyValue",
+    "name": "Evidence and validation limitations",
+    "value": "Feasibility and systems concept; the integrated end-to-end system has not been independently validated."
+  }
+}
